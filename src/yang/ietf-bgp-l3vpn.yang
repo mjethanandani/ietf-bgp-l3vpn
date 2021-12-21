@@ -514,9 +514,11 @@ module ietf-bgp-l3vpn {
           "rt:control-plane-protocol/bgp:bgp/bgp:global/" +
           "bgp:afi-safis/bgp:afi-safi/bgp:l3vpn-ipv4-unicast" {
     description "Retain route targets for ASBR scenario";
-    container ipv4-unicast {
+    container l3vpn-ipv4-unicast {
       uses retain-route-targets;
       uses vpn-pfx-limit;
+      description
+	"Container for L3VPN IPv4 Unicast";
     }
   }
 
@@ -524,8 +526,12 @@ module ietf-bgp-l3vpn {
           "rt:control-plane-protocol/bgp:bgp/bgp:global/" +
           "bgp:afi-safis/bgp:afi-safi/bgp:l3vpn-ipv6-unicast" {
     description "Retain route targets for ASBR scenario";
-    uses retain-route-targets;
-    uses vpn-pfx-limit;
+    container l3vpn-ipv6-unicast {
+      uses retain-route-targets;
+      uses vpn-pfx-limit;
+      description
+	"Container for L3VPN IPv6 Unicast.";
+    }
   }
 
   // Label allocation mode configuration. Certain AFs only.
@@ -535,8 +541,12 @@ module ietf-bgp-l3vpn {
      description
        "Augment BGP global AF mode for label allocation mode
         configuration";
-     uses bgp-label-mode ;
-     uses routing-tbl-limit;
+     container ipv4-unicast {
+       uses bgp-label-mode ;
+       uses routing-tbl-limit;
+       description
+	 "Container for IPv4 Unicast.";
+     }
   }
 
   augment "/rt:routing/rt:control-plane-protocols/" +
@@ -545,8 +555,12 @@ module ietf-bgp-l3vpn {
      description
        "Augment BGP global AF mode for label allocation mode
         configuration";
-     uses bgp-label-mode ;
-     uses routing-tbl-limit;
+     container ipv6-unicast {
+       uses bgp-label-mode ;
+       uses routing-tbl-limit;
+       description
+	 "Container for IPv6 Unicast.";
+     }
   }
 
   // TBD Additional oper state leafs
