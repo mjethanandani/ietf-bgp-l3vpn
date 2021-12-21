@@ -1,14 +1,8 @@
 module ietf-bgp-l3vpn {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:ietf-bgp-l3vpn";
+  // replace with IANA namespace when assigned
   prefix l3vpn ;
-
-  import ietf-routing {
-    prefix rt;
-    reference
-      "RFC 8349, A YANG Data Model for Routing Management
-       (NMDA Version).";
-  }
 
   import ietf-network-instance {
     prefix ni;
@@ -510,28 +504,23 @@ module ietf-bgp-l3vpn {
   // Retain route-target for inter-as option ASBR knob.
   // vpn prefix limits
   // vpnv4/vpnv6 address-family only.
-  augment "/rt:routing/rt:control-plane-protocols/" +
-          "rt:control-plane-protocol/bgp:bgp/bgp:global/" +
-          "bgp:afi-safis/bgp:afi-safi/bgp:l3vpn-ipv4-unicast" {
+  augment "/bgp:bgp/bgp:global/bgp:afi-safis/" +
+          "bgp:afi-safi/bgp:l3vpn-ipv4-unicast" {
     description "Retain route targets for ASBR scenario";
-    container ipv4-unicast {
-      uses retain-route-targets;
-      uses vpn-pfx-limit;
-    }
+    uses retain-route-targets;
+    uses vpn-pfx-limit;
   }
 
-  augment "/rt:routing/rt:control-plane-protocols/" +
-          "rt:control-plane-protocol/bgp:bgp/bgp:global/" +
-          "bgp:afi-safis/bgp:afi-safi/bgp:l3vpn-ipv6-unicast" {
+  augment "/bgp:bgp/bgp:global/bgp:afi-safis/" +
+          "bgp:afi-safi/bgp:l3vpn-ipv6-unicast" {
     description "Retain route targets for ASBR scenario";
     uses retain-route-targets;
     uses vpn-pfx-limit;
   }
 
   // Label allocation mode configuration. Certain AFs only.
-  augment "/rt:routing/rt:control-plane-protocols/" +
-          "rt:control-plane-protocol/bgp:bgp/bgp:global/" +
-          "bgp:afi-safis/bgp:afi-safi/bgp:ipv4-unicast" {
+  augment "/bgp:bgp/bgp:global/bgp:afi-safis/" +
+          "bgp:afi-safi/bgp:ipv4-unicast" {
      description
        "Augment BGP global AF mode for label allocation mode
         configuration";
@@ -539,9 +528,8 @@ module ietf-bgp-l3vpn {
      uses routing-tbl-limit;
   }
 
-  augment "/rt:routing/rt:control-plane-protocols/" +
-          "rt:control-plane-protocol/bgp:bgp/bgp:global/" +
-          "bgp:afi-safis/bgp:afi-safi/bgp:ipv6-unicast" {
+  augment "/bgp:bgp/bgp:global/bgp:afi-safis/" +
+          "bgp:afi-safi/bgp:ipv6-unicast" {
      description
        "Augment BGP global AF mode for label allocation mode
         configuration";
