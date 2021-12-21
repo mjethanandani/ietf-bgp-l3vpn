@@ -1,0 +1,39 @@
+<!--
+    This example shows a L3VPN IPv4 unicast configuration
+-->
+
+<?xml version="1.0" encoding="UTF-8"?>
+<routing
+    xmlns="urn:ietf:params:xml:ns:yang:ietf-routing">
+  <control-plane-protocols>
+    <control-plane-protocol>
+      <type
+          xmlns:bgp="urn:ietf:params:xml:ns:yang:ietf-bgp">bgp:bgp</type>
+      <name>name:BGP</name>
+      <bgp
+          xmlns="urn:ietf:params:xml:ns:yang:ietf-bgp">
+        <global>
+          <as>64496</as>
+          <afi-safis>
+            <afi-safi>
+              <name
+                  xmlns:bt=
+                  "urn:ietf:params:xml:ns:yang:ietf-bgp-types">bt:l3vpn-ipv4-unicast</name>
+	      <l3vpn-ipv4-unicast>
+		<ipv4-unicast
+		    xmlns="urn:ietf:params:xml:ns:yang:ietf-bgp-l3vpn">
+		  <retain-route-targets>
+		    <all/>
+		  </retain-route-targets>
+		  <vpn-prefix-limit>
+		    <prefix-limit-number>12</prefix-limit-number>
+		  </vpn-prefix-limit>
+		</ipv4-unicast>
+	      </l3vpn-ipv4-unicast>
+            </afi-safi>
+          </afi-safis>
+        </global>
+      </bgp>
+    </control-plane-protocol>
+  </control-plane-protocols>
+</routing>
